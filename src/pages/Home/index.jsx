@@ -1,10 +1,10 @@
 import { Container, Section, Content, DescriptionMovie, NewMovie } from "./styles";
 import { Header } from "../../components/Header";
 import { Movie } from "../../components/Movie";
-
 import { FiPlus } from "react-icons/fi";
 
 export function Home() {
+
     return (
         <Container>
             <Header />
@@ -20,7 +20,7 @@ export function Home() {
             <Content>
                 <section>
                     <DescriptionMovie>
-                        <Movie to="/preview" data={
+                        <Movie data={
                             {
                                 title: "Interestellar",
                                 rating: 4,
@@ -32,7 +32,7 @@ export function Home() {
                                 ]
                             }
                         } />
-                        <Movie to="/preview" data={
+                        <Movie data={
                             {
                                 title: "Interestellar",
                                 rating: 4,
@@ -44,7 +44,7 @@ export function Home() {
                                 ]
                             }
                         } />
-                        <Movie to="/preview" data={
+                        <Movie data={
                             {
                                 title: "Interestellar",
                                 rating: 4,

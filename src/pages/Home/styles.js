@@ -40,7 +40,7 @@ export const DescriptionMovie = styled.div`
     gap: 2.4rem;
 `;
 
-export const NewMovie = styled(Link)`
+export const NewMovie = styled.div`
     width: 22rem;
     height: 5.6rem;
 

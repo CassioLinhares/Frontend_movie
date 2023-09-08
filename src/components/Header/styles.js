@@ -46,25 +46,28 @@ export const Profile = styled(Link)`
 
     >div{
         display: flex;
-        flex-direction: column;
-        align-items: end;
         font-size: 1.4rem;
 
+        > img{
+            height: 5.6rem;
+            width: 5.6rem;
+            border-radius: 50%;
+            margin-left: .9rem;
+        }
         > strong{
+            padding-top: 0.5rem;
             font-weight: 700;
             color: ${ ({theme}) => theme.COLORS.GRAY_50 };
+            position: relative;
         }
-
-        > a{
-            color: ${ ({theme}) => theme.COLORS.GRAY_100 };
-        }
-        
     }
+`;
 
-    > img{
-        height: 5.6rem;
-        border-radius: 50%;
-        margin-left: .9rem;
-    }
-
+export const Logout = styled.button`
+    background: none;
+    border: none;
+    color: ${ ({theme}) => theme.COLORS.GRAY_100 };
+    position: absolute;
+    right: 15.3rem;
+    top: 4rem;
 `;

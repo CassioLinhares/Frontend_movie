@@ -37,9 +37,10 @@ export const Form = styled.form`
     }
 
     > a{
-        text-align: center;
-        color: ${ ({theme}) => theme.COLORS.ROSE };
         margin-top: 4.2rem;
+        text-align: center;
+        text-decoration: none;
+        color: ${ ({theme}) => theme.COLORS.ROSE };
     }
     
     button{
