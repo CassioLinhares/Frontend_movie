@@ -1,64 +1,100 @@
 import { Container, Content } from "./styles";
-
 import { Header } from "../../components/Header";
-import { Link } from "../../components/Link";
+import { Button } from "../../components/Button";
+import { ButtonText } from "../../components/ButtonText";
 import { Rating } from "../../components/Rating";
 import { Section } from "../../components/Section";
 import { Tag } from "../../components/Tag";
-
 import { FiArrowLeft, FiClock } from "react-icons/fi";
 
+import { useState, useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { api } from "../../services";
+import { useAuth } from "../../hooks/auth";
+
 export function Preview() {
+    const params = useParams();
+    const navigate = useNavigate();
+    const { user } = useAuth();
+
+    const [data, setData] = useState(null);
+    const avatarUrl = user.avatar ? `${api.defaults.baseURL}/files/${user.avatar}` : avatarPlaceholder;
+
+    function handleBack() {
+        navigate(-1);
+    }
+
+    async function handleDeleteMovie() {
+        const confirm = window.confirm("Do you really want to delete the note?");
+        if (confirm) {
+           const response = await api.delete(`/notes/${params.id}`);
+            // console.log(response.data)
+            navigate(-1);  
+        }
+    }
+
+    useEffect(() => {
+        async function fetchNotes() {
+            const response = await api.get(`/notes/${params.id}`);
+            // console.log(response.data)
+            setData(response.data);
+        }
+        fetchNotes();
+    }, []);
+
     return (
         <Container>
             <Header />
 
-            <main>
-                <Content>
-                    <Link to="/" title="Return" icon={FiArrowLeft} />
+            {
+                data && (
+                    <main>
+                        <Content>
+                            <div className="headerBtn">
+                                <div>
+                                    <ButtonText title="Return" icon={FiArrowLeft} onClick={handleBack} />
+                                </div>
+                                <div>
+                                    <ButtonText title="Delete movie" onClick={handleDeleteMovie}/>
+                                </div>
+                            </div>
 
-                    <header>
-                        <div className="inline">
-                            <h2>Interestellar</h2>
-                            <Rating rating={4} isBigSize />
-                        </div>
+                            <header>
+                                <div className="inline">
+                                    <h2>{data.title}</h2>
+                                    <Rating rating={data.rating} isBigSize />
+                                </div>
 
-                        <div className="inline">
-                            <img src="https://www.github.com/CassioLinhares.png" alt="user image" />
-                            <strong>By Cássio Linhares</strong>
-                            <span> <FiClock /> 27/07/2023 as 20:45</span>
-                        </div>
-                    </header>
+                                <div className="inline">
+                                    <img src={avatarUrl} alt={avatarUrl} />
+                                    <strong>By {user.name}</strong>
+                                    <span> <FiClock /> {data.updated_at}</span>
+                                </div>
+                            </header>
 
-                    <Section>
-                        <Tag title="Ficção Científica" />
-                        <Tag title="Drama" />
-                        <Tag title="Família" />
-                    </Section>
+                            {
+                                data.tags &&
+                                <Section>
+                                    {
+                                        data.tags.map(tag => (
+                                            <Tag
+                                                title={tag.name}
+                                                key={String(tag.id)}
+                                            />
+                                        ))
+                                    }
 
-                    <p>
-                        Pragas nas colheitas fizeram a civilização humana regredir para uma sociedade
-                        agrária em futuro de data desconhecida. Cooper, ex-piloto da NASA, tem uma
-                        fazenda com sua família. Murphy, a filha de dez anos de Cooper, acredita que
-                        seu quarto está assombrado por um fantasma que tenta se comunicar com ela.
-                        Pai e filha descobrem que o "fantasma" é uma inteligência desconhecida que
-                        está enviando mensagens codificadas através de radiação gravitacional,
-                        deixando coordenadas em binário que os levam até uma instalação secreta da
-                        NASA liderada pelo professor John Brand. O cientista revela que um buraco
-                        de minhoca foi aberto perto de Saturno e que ele leva a planetas que podem
-                        oferecer condições de sobrevivência para a espécie humana. As "missões Lázaro"
-                        enviadas anos antes identificaram três planetas potencialmente habitáveis
-                        orbitando o buraco negro Gargântua: Miller, Edmunds e Mann – nomeados em
-                        homenagem aos astronautas que os pesquisaram. Brand recruta Cooper para
-                        pilotar a nave espacial Endurance e recuperar os dados dos astronautas; se
-                        um dos planetas se mostrar habitável, a humanidade irá seguir para ele na
-                        instalação da NASA, que é na realidade uma enorme estação espacial. A partida
-                        de Cooper devasta Murphy.
-                    </p>
+                                </Section>
+                            }
 
-                </Content>
-            </main>
+                            <p>{data.description}</p>
+
+                        </Content>
+                    </main>
+                )
+            }
 
         </Container>
     );
 }
+

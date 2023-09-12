@@ -53,12 +53,12 @@ export const Profile = styled(Link)`
             width: 5.6rem;
             border-radius: 50%;
             margin-left: .9rem;
+            position: relative;
         }
         > strong{
-            padding-top: 0.5rem;
+            padding-top: 0.4rem;
             font-weight: 700;
             color: ${ ({theme}) => theme.COLORS.GRAY_50 };
-            position: relative;
         }
     }
 `;
@@ -68,6 +68,6 @@ export const Logout = styled.button`
     border: none;
     color: ${ ({theme}) => theme.COLORS.GRAY_100 };
     position: absolute;
-    right: 15.3rem;
-    top: 4rem;
+    right: 18.8rem;
+    top: 4.3rem;
 `;

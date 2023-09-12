@@ -15,7 +15,12 @@ export const Container = styled.div`
 
 export const Content = styled.div`
         grid-area: "content";
-        margin: 3rem 7.5rem 2rem 8.5rem;        
+        margin: 3rem 11rem 2rem 8.5rem;
+        
+        .headerBtn{
+            display: flex;
+            justify-content: space-between;
+        }
 
        > header{
             display: flex;

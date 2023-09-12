@@ -29,6 +29,20 @@ export const Form = styled.form`
             font-size: 3.6rem;
             font-weight: 500;
         }
+
+        > button{
+            width: 100%;
+            display: flex;
+            align-items: center;
+            background: none;
+            border: none;
+
+            color: ${({ theme }) => theme.COLORS.ROSE};
+
+            svg{
+                margin-right: 1rem;
+            }
+        }
     }
 
     .inline{
@@ -43,7 +57,7 @@ export const Form = styled.form`
         padding: 1.6rem;
         
         border-radius: 1rem;
-        background-color: ${ ({theme}) => theme.COLORS.BACKGROUND_900 };
+        background-color: ${({ theme }) => theme.COLORS.BACKGROUND_900};
     }
 
 `;

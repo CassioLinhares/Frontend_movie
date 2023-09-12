@@ -3,11 +3,31 @@ import { Header } from "../../components/Header";
 import { Movie } from "../../components/Movie";
 import { FiPlus } from "react-icons/fi";
 
+import { useState, useEffect } from "react";
+import { api } from "../../services";
+import { useNavigate } from "react-router-dom";
+
 export function Home() {
+    const navigate = useNavigate();
+
+    const [search, setSearch] = useState("");
+    const [notes, setNotes] = useState([]);
+
+    function handlePreview(id) {
+        navigate(`/preview/${id}`);
+    }
+      
+    useEffect(() => {
+        async function fetchNotes() {
+            const response = await api.get(`/notes?title=${search}`);
+            setNotes(response.data);
+        }
+        fetchNotes();
+    }, [search]);
 
     return (
         <Container>
-            <Header />
+            <Header setSearch={setSearch} />
 
             <Section>
                 <h2>My movies</h2>
@@ -19,44 +39,19 @@ export function Home() {
 
             <Content>
                 <section>
+
                     <DescriptionMovie>
-                        <Movie data={
-                            {
-                                title: "Interestellar",
-                                rating: 4,
-                                description: "Pragas nas colheitas fizeram a civilização humana regredir para uma sociedade agrária em futuro de data desconhecida. Cooper, ex-piloto da NASA, tem uma fazenda com sua família. Murphy, a filha de dez anos de Cooper, acredita que seu quarto está assombrado por um fantasma que tenta se ",
-                                tags: [
-                                    { id: "1", name: "science fiction" },
-                                    { id: "2", name: "drama" },
-                                    { id: "3", name: "Family" }
-                                ]
-                            }
-                        } />
-                        <Movie data={
-                            {
-                                title: "Interestellar",
-                                rating: 4,
-                                description: "Pragas nas colheitas fizeram a civilização humana regredir para uma sociedade agrária em futuro de data desconhecida. Cooper, ex-piloto da NASA, tem uma fazenda com sua família. Murphy, a filha de dez anos de Cooper, acredita que seu quarto está assombrado por um fantasma que tenta se ",
-                                tags: [
-                                    { id: "1", name: "Science fiction" },
-                                    { id: "2", name: "drama" },
-                                    { id: "3", name: "Family" }
-                                ]
-                            }
-                        } />
-                        <Movie data={
-                            {
-                                title: "Interestellar",
-                                rating: 4,
-                                description: "Pragas nas colheitas fizeram a civilização humana regredir para uma sociedade agrária em futuro de data desconhecida. Cooper, ex-piloto da NASA, tem uma fazenda com sua família. Murphy, a filha de dez anos de Cooper, acredita que seu quarto está assombrado por um fantasma que tenta se ",
-                                tags: [
-                                    { id: "1", name: "Science fiction" },
-                                    { id: "2", name: "drama" },
-                                    { id: "3", name: "Family" }
-                                ]
-                            }
-                        } />
+                        { 
+                           notes.map((note) => (
+                            <Movie
+                                key={String(note.id)}
+                                data={note}
+                                onClick={() => {handlePreview(note.id)}} 
+                            />
+                           ))
+                        }
                     </DescriptionMovie>
+
                 </section>
 
             </Content>

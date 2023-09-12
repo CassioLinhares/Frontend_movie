@@ -6,14 +6,18 @@ export const Container = styled.div`
     height: 100vh;
 
     display: grid;
-    grid-template-rows: 9rem auto;
-    grid-template-areas: "header" "content";
+    grid-template-rows: 9rem 9rem auto;
+    grid-template-areas: 
+    "header",
+    "addMovie",
+    "content";
 `;
 
 export const Section = styled.div`
+    grid-area: "addMovie";
     margin: 2.4rem 7.5rem 0 8.5rem;
     display: flex;
-    align-items: center;
+    /* align-items: center; */
     justify-content: space-between;
     
     > h2{
@@ -23,8 +27,8 @@ export const Section = styled.div`
 `;
 
 export const Content = styled.main`
+    grid-area: "content";
     margin: 1rem 7.5rem 2rem 8.5rem;
-    max-height: 56vh;
     overflow-y: auto;
 
     > section{
@@ -40,7 +44,7 @@ export const DescriptionMovie = styled.div`
     gap: 2.4rem;
 `;
 
-export const NewMovie = styled.div`
+export const NewMovie = styled(Link)`
     width: 22rem;
     height: 5.6rem;
 

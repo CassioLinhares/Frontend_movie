@@ -1,12 +1,11 @@
 import { styled } from "styled-components";
-import { Link } from "react-router-dom";
 
-export const Container = styled(Link)`
+export const Container = styled.button`
     width: 100%;
-
     display: flex;
     align-items: center;
-    justify-content: ${ ({centered}) => centered ? "center" : "flex-start" };
+    background: none;
+    border: none;
 
     color: ${({ theme }) => theme.COLORS.ROSE};
 
