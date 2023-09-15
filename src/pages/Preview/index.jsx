@@ -37,7 +37,7 @@ export function Preview() {
     useEffect(() => {
         async function fetchNotes() {
             const response = await api.get(`/notes/${params.id}`);
-            console.log(response.data)
+            // console.log(response.data)
             setData(response.data);
         }
         fetchNotes();
@@ -98,5 +98,3 @@ export function Preview() {
         </Container>
     );
 }
-
-//erro ao carregar a page de preview
