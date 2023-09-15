@@ -11,6 +11,7 @@ import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { api } from "../../services";
 import { useAuth } from "../../hooks/auth";
+import avatarPlaceholder from "../../assets/avatarPlaceholder.svg";
 
 export function Preview() {
     const params = useParams();
